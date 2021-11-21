@@ -14,7 +14,7 @@
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="/voucher">Voucher</a></li>
-            <li class="breadcrumb-item active">Tambah</li>
+            <li class="breadcrumb-item active">Ubah</li>
         </ol>
         </div>
     </div>
@@ -29,15 +29,15 @@
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Form tambah Voucher</h3>
+                    <h3 class="card-title">Form ubah Voucher <%= voucher.name %></h3>
                 </div>
                 <!-- /.card-header -->
-                <form action="/voucher/create" method="POST" enctype="multipart/form-data">
+                <form action="/voucher/edit/<%= voucher._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                     <div class="card-body">
 
                         <div class="form-group">
                             <label for="name">Nama Game</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Masukan nama game" required>
+                            <input type="text" name="name" value="<%= voucher.name %>" class="form-control" id="name" placeholder="Masukan nama game" required>
                         </div>
 
                         <div class="form-group">
@@ -45,7 +45,13 @@
                             <select class="form-control select2" style="width: 100%;" name="category" required>
                                 <option selected="selected">Pilih category</option>
                                 <% category.forEach(category =>  { %>
-                                    <option value="<%= category._id %>"><%= category.name %></option>
+                                    <option value="<%= category._id %>" 
+                                        <% if(category._id.toString() === voucher?.category?._id.toString()) { %>
+                                            selected
+                                        <% } %>        
+                                    >
+                                        <%= category.name %>
+                                    </option>
                                 <% }) %>
                             </select>
                         </div>
@@ -55,7 +61,15 @@
                             <div class="select2-purple">
                                 <select data-placeholder="Pilih nominal" class="form-control select2" multiple="multiple" style="width: 100%;" name="nominals" required>
                                     <% nominal.forEach(nominal =>  { %>
-                                        <option value="<%= nominal._id %>"><%= nominal.coinName %> <%= nominal.coinQuantity %></option>
+                                        <option value="<%= nominal._id %>"
+                                            <% voucher.nominals.forEach(voucherNominal => { %>
+                                                <% if(nominal._id.toString() === voucherNominal._id.toString()) { %>
+                                                    selected
+                                                <% } %>
+                                            <% }) %>
+                                        >
+                                            <%= nominal.coinName %> <%= nominal.coinQuantity %>
+                                        </option>
                                     <% }) %>
                                 </select>
                             </div>
@@ -63,9 +77,9 @@
 
                         <div class="form-group">
                             <label for="image">Gambar</label>
-                            <input type="file" name="image" class="form-control" id="image" placeholder="Masukan gambar" required>
+                            <input type="file" name="image" class="form-control" id="image" placeholder="Masukan gambar">
                             <br />
-                            <img src="" alt="" id="preview">
+                            <img alt="" id="preview" src="http://localhost:3000/uploads/<%= voucher.thumbnail %>">
                         </div>
 
                         <div class="card-footer">
