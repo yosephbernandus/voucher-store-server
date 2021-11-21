@@ -1,0 +1,31 @@
+<table id="example2" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Nama Voucher</th>
+        <th>Status</th>
+        <th>Aksi</th>
+    </tr>
+    </thead>
+    <tbody>
+        <% for (let i = 0; i < voucher.length; i++) { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= voucher[i].name %></td>
+                <td><%= voucher[i].status %></td>
+                <td>
+                    <form action="/voucher/delete/<%= voucher[i]._id %>?_method=DELETE" method="POST">
+                        <a href="/voucher/edit/<%= voucher[i]._id %>" class="btn btn-warning">
+                            <i class="fas fa-pencil-alt"></i>
+                            Ubah
+                        </a>
+                        <button class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                            Hapus
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
