@@ -44,35 +44,35 @@ module.exports = {
         }
     },
 
-    // viewEdit: async (req, res) => {
-    //     try {
-    //         const { id } = req.params;
-    //         const nominal = await Nominal.findById({_id: id});
-    //         res.render('admin/nominal/edit', {
-    //             nominal
-    //         })
-    //     } catch (err) {
-    //         req.flash('alertMessage', `${err.message}`);
-    //         req.flash('alertStatus', 'danger');
-    //         res.redirect('/nominal');
-    //     }
-    // },
+    viewEdit: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const bank = await Bank.findOne({_id: id});
+            res.render('admin/bank/edit', {
+                bank
+            })
+        } catch (err) {
+            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect('/bank');
+        }
+    },
 
-    // actionEdit: async (req, res) => {
-    //     try {
-    //         const { id } = req.params;
-    //         const { coinName, coinQuantity, price } = req.body;
-    //         await Nominal.findOneAndUpdate({_id: id}, {coinName, coinQuantity, price});
+    actionEdit: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { name, nameBank, noRekening } = req.body;
+            await Bank.findOneAndUpdate({_id: id}, {name, nameBank, noRekening});
 
-    //         req.flash('alertMessage', 'Success Edit Nominal');
-    //         req.flash('alertStatus', 'success');
-    //         res.redirect('/nominal')
-    //     } catch (err) {
-    //         req.flash('alertMessage', `${err.message}`);
-    //         req.flash('alertStatus', 'danger');
-    //         res.redirect('/nominal');
-    //     }
-    // },
+            req.flash('alertMessage', 'Success Edit Bank');
+            req.flash('alertStatus', 'success');
+            res.redirect('/bank')
+        } catch (err) {
+            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect('/bank');
+        }
+    },
 
     // actionDelete: async (req, res) => {
     //     try {
