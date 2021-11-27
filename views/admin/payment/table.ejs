@@ -2,28 +2,26 @@
     <thead>
     <tr>
         <th>No.</th>
-        <th>Nama Game</th>
-        <th>Kategori</th>
-        <th>Nominal</th>
+        <th>Tipe Pembayaran</th>
+        <th>Banks</th>
         <th>Status</th>
         <th>Aksi</th>
     </tr>
     </thead>
     <tbody>
-        <% for (let i = 0; i < voucher.length; i++) { %>
+        <% for (let i = 0; i < payment.length; i++) { %>
             <tr>
                 <td><%= i + 1 %></td>
-                <td><%= voucher[i].name %></td>
-                <td><%= voucher[i].category?.name ?? '-' %></td>
+                <td><%= payment[i].type %></td>
                 <td>
-                    <% voucher[i].nominals.forEach(nominal => { %>
+                    <% payment[i].banks.forEach(bank => { %>
                         <span class="badge badge-warning">
-                            <%= nominal.coinName %> <%= nominal.coinQuantity %>
+                            <%= bank.name %>-<%= bank.nameBank %>-<%= bank.noRekening %>
                         </span>
                     <% }) %>
                 </td>
                 <td>
-                    <% if (voucher[i].status === 'Y') { %>
+                    <% if (payment[i].status === 'Y') { %>
                         <span class="badge badge-success">
                             Aktif
                         </span>
@@ -34,18 +32,18 @@
                     <% } %>
                 </td>
                 <td>
-                    <form action="/voucher/status/<%= voucher[i]._id %>?_method=PUT" method="POST" style="display: inline-block;">
+                    <form action="/payment/status/<%= payment[i]._id %>?_method=PUT" method="POST" style="display: inline-block;">
                         <button class="btn btn-primary btn-sm">
                             <i class="fas fa-folder"></i>
-                            <% if (voucher[i].status === 'Y') { %>
+                            <% if (payment[i].status === 'Y') { %>
                                 Matikan
                             <% } else { %>
                                 Hidupkan
                             <% } %>
                         </button>
                     </form>
-                    <form action="/voucher/delete/<%= voucher[i]._id %>?_method=DELETE" method="POST" style="display: inline-block;">
-                        <a href="/voucher/edit/<%= voucher[i]._id %>" class="btn btn-info btn-sm">
+                    <form action="/payment/delete/<%= payment[i]._id %>?_method=DELETE" method="POST" style="display: inline-block;">
+                        <a href="/payment/edit/<%= payment[i]._id %>" class="btn btn-info btn-sm">
                             <i class="fas fa-pencil-alt"></i>
                             Ubah
                         </a>
