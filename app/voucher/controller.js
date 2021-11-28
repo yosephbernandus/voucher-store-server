@@ -18,7 +18,9 @@ module.exports = {
                 .populate('nominals');
             res.render('admin/voucher/view_voucher', {
                 voucher,
-                alert
+                alert,
+                name: req.session.user.name,
+                title: 'Halaman Voucher'
             })
         } catch (err) {
             req.flash('alertMessage', `${err.message}`);
@@ -30,7 +32,12 @@ module.exports = {
         try {
             const category = await Category.find();
             const nominal = await Nominal.find();
-            res.render('admin/voucher/create', {category, nominal});
+            res.render('admin/voucher/create', {
+                category,
+                nominal,
+                name: req.session.user.name,
+                title: 'Halaman Tambah Voucher'
+            });
         } catch (err) {
             req.flash('alertMessage', `${err.message}`);
             req.flash('alertStatus', 'danger');
@@ -101,7 +108,9 @@ module.exports = {
             res.render('admin/voucher/edit', {
                 voucher,
                 nominal,
-                category
+                category,
+                name: req.session.user.name,
+                title: 'Halaman Edit Voucher'
             })
         } catch (err) {
             req.flash('alertMessage', `${err.message}`);
