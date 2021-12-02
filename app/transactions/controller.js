@@ -1,4 +1,5 @@
 const Transaction = require('./model');
+const config = require('../../config');
 
 module.exports = {
     index: async (req, res) => {
@@ -11,6 +12,7 @@ module.exports = {
             res.render('admin/transaction/view_transaction', {
                 transaction,
                 alert,
+                baseUrl: config.baseUrl,
                 name: req.session.user.name,
                 title: 'Halaman Transaction'
             })

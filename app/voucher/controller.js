@@ -109,6 +109,7 @@ module.exports = {
                 voucher,
                 nominal,
                 category,
+                baseUrl: config.baseUrl,
                 name: req.session.user.name,
                 title: 'Halaman Edit Voucher'
             })
